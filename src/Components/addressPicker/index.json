@@ -1,0 +1,10 @@
+{
+    "defaultTitle": "CascaderPicker",
+    "usingComponents": {
+      "cascader-picker": "antd-mini/es/Picker/CascaderPicker/index",
+      "list-item": "antd-mini/es/List/ListItem/index",
+      "list": "antd-mini/es/List/index",
+      "button": "antd-mini/es/Button/index"
+    }
+}
+

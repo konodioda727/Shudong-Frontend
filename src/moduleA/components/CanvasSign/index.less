@@ -1,0 +1,21 @@
+.container {
+    position: relative;
+    overflow: hidden;
+  
+    // 用于绘制签名的 canvas 占满全屏
+    .signCanvas {
+      margin-left: 15vw;
+      width: 85vw;
+      height: 100vh;
+      overflow: hidden;
+      //z-index: 2;
+    }
+  
+    // 把旋转内容的 canvas 藏起来
+    .saveCanvas {
+      position: absolute;
+      top: -600px;
+      left: 0;
+      z-index: -1;
+    }
+  }

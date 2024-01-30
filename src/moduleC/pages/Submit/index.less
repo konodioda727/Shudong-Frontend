@@ -1,0 +1,121 @@
+@button-height:4vh;
+@input-height: 6vh;
+.score-wrap {
+    position: relative;
+    width: 80vw;
+    height: 12vh;
+    border-radius: 30px;
+    margin: auto;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px 5px rgb(239, 239, 239);
+    z-index: 1;
+    .score-info {
+        position: absolute;
+        left: 5%;
+        top: 50%;
+        transform: translateY(-50%);
+        .score-name {
+            font-size: 3vh;
+        }
+        .score-mobile {
+            font-size: 1.6vh;
+            color: gray;
+        }
+    }
+    .score-button {
+        position: absolute;
+        right: 5%;
+        top: 50%;
+        width: 16vw;
+        height: @button-height;
+        text-align: center;
+        font-size: 1.8vh;
+        line-height: @button-height;
+        transform: translateY(-50%);
+        background-color: #76A9FF;
+        color: #fff;
+        border-radius: 20px;
+        z-index: inherit;
+    }
+}
+.hover-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: gray;
+    opacity: .3;
+    z-index: 2;
+}
+.viewAll {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #53c6fb;
+    font-weight: bold;
+}
+.hover-page {
+    position: absolute;
+    bottom: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 40vh;
+    border-radius: 30px;
+    background-color: #fff;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    .hover-text {
+        font-weight: bold;
+        color: #76A9FF;
+        font-size: 3.4vh;
+        text-decoration: dashed;
+    }
+    .input-wrap {
+        display: flex;
+        align-items: center;
+        .hover-label {
+            color: gray;
+        }
+        .sub-button {
+            width: 24vw;
+            height: 4vh;
+            margin: 10px;
+            font-size: 5vw;
+            color: #fff;
+            background-color:#76A9FF /* #08c561 */;
+            line-height: 4vh;
+        }
+        .deny {
+            background-color: #f65f3e;
+        }
+        .gray {
+            background-color: #eee;
+            color: #a3a1a1;
+        }
+        .hover-input {
+            background-color: #f2f3f4;
+            border-radius: 60px;
+            height: @input-height;
+            border-radius: 10px;
+        }
+    }
+    .button-wrap {
+        display: flex;
+        justify-content: center;
+        .hover-button {
+            background-color: #76A9FF;
+            color: white;
+            margin: 20px;
+        }
+        .quit {
+            background-color: gray;
+        }
+    }
+
+}

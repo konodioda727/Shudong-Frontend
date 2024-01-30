@@ -1,0 +1,23 @@
+.container {
+    position: relative;
+  
+    .btns {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vh;
+      transform-origin: 0 0;
+      z-index: 50;
+      // 注意这里，手动把按钮组横了过来
+      transform: rotateZ(90deg) translateY(-100%);
+      display: flex;
+      justify-content: center;
+      padding: 32px 0px;
+  
+      .btn {
+        margin: 0px 16px;
+        width: 20vh;
+        z-index: 50;
+      }
+    }
+  }
