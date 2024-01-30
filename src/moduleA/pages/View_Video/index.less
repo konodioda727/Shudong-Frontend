@@ -1,0 +1,98 @@
+@gray: #A9A9A9;
+@blue: #007BFF;
+@lightgray: #F5F5F5;
+.switch-tab-bar {
+  display: flex;
+  position: relative;
+  margin: 40px auto 40px auto;
+  width: 80vw;
+  height: 6vh;
+  border-radius: 4vh;
+  box-shadow: 6px 6px 10px rgba(0, 0, 0, .4);
+  overflow: hidden;
+  .switch-tab-item {
+    flex: 0.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: #A9A9A9;
+    opacity: .6;
+    font-size: 2vh;
+    transition: all .4s ease-in-out;
+  }
+  .checked {
+    background-color: @blue;
+    color: white;
+    transition: all .4s ease-in-out;
+  }
+}
+
+.item-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  margin: 10px auto;
+  width: 94%;
+  .item-title {
+    width: 100%;
+    height: 10vh;
+    background-color: @lightgray;
+    border-radius: 10px;
+    margin: 0 10px;
+    transition: all .8s ease-in-out;
+    text-align: center;
+    line-height: 10vh;
+    font-weight: bold;
+    font-size: 1rem;
+    border-bottom: 2px dashed @gray;
+  }
+  .switch-drop {
+    box-sizing: border-box;
+    background-color: @lightgray;
+    border-radius: 20px;
+    width: 94%;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    transition: all .8s ease-in-out;
+    .item-dropdown {
+      width: 90%;
+      height: 14vh;
+      margin: 10px;
+      border-radius: 20px;
+      border-bottom: dashed 2px #C0C0C0 ;
+      padding: 10px;
+      position: relative;
+      box-sizing: border-box;
+      .item-details, .item-duration {
+        position: absolute;
+        transform: translateY(-50%);
+        padding-left: 20px;
+      }
+      .item-details:before, .item-duration:before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        width: .3rem;
+        height: 1rem;
+        background-color: @blue;
+      }
+      .item-details {
+        font-size: .9rem;
+        top: 30%;
+
+      }
+      .item-duration {
+        top: 60%;
+      }
+    }
+  }
+
+}
