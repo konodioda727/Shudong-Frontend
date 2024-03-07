@@ -27,7 +27,6 @@ export const validate = (res) => {
       code: res.code,
       phone_number: Taro.getStorageSync('phone'),
     }
-    console.log(data)
     return Fetch('/user/wxMiniAuth', data, 'POST')
   } else {
     console.log('登录失败！' + res.errMsg)

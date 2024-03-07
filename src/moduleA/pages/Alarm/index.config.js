@@ -1,4 +1,3 @@
-export default ({
-    navigationBarTitleText: '报警信息'
-  })
-  
+export default {
+  navigationBarTitleText: '报警信息',
+}

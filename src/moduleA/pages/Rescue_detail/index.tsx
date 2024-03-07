@@ -1,60 +1,56 @@
 import Taro,{getCurrentInstance,useReady} from '@tarojs/taro'
-import { View,Text,Image, Button} from '@tarojs/components'
-import { useState } from 'react'
+import {View, Text, Image, Button, Input} from '@tarojs/components'
+import React, { useState } from 'react'
 import arr from "../../../images/right_arrow.png"
 import './index.less'
 import Fetch from '../../../Service/fetch'
+import {useSelector} from "react-redux";
+import {storeType} from "../../../store/storeType";
+import {Clip, Nav} from "../../../utils/taroFunctions";
+import {rescueStatus} from "../../../Components/types/rescueMessageItemTypes";
+import {getImgUrl} from "../Alarm";
 
-const R_detail=()=>{
-
-    const [create_time,setCreate_time] = useState('') 
-    const [weibo_address,setweibo_address] = useState('')
-    const [nickname,setNickname] = useState('')
-    const [risk_level,setRisk_level] = useState('')
-    const [teacher,setTeacher] = useState([])
-    const Sex = [
-        '女',
-        '男'
-    ]
-    const [sex,setSex] = useState(0)
-    const [text,setText] = useState('')
-    const [birthday,setBirthday] = useState('')
-    const [area,setArea] = useState('')
-    const [id,setId] = useState('')//救援对象的id
-    const [infoid, setInfoid] = useState('')//信息的id
+const R_detail: React.FC = () => {
+const {rescueInfo, targetInfo} = useSelector((state: storeType) => state.rescueInfo)
+const {weibo_address, nickname,birthday, create_time,text, sex, area, risk_level, rescue_target_id} = rescueInfo
+    const {status, rescue_teacher1_role, rescue_teacher2_role, rescue_teacher3_role} = targetInfo
+    const stat = rescueStatus[targetInfo ? targetInfo.status : 0]
+//     const [create_time,setCreate_time] = useState('')
+//     const [weibo_address,setweibo_address] = useState('')
+//     const [nickname,setNickname] = useState('')
+//     const [risk_level,setRisk_level] = useState('')
+//     const [teacher,setTeacher] = useState([])
+//     const Sex = [
+//         '女',
+//         '男'
+//     ]
+//     const [sex,setSex] = useState(0)
+//     const [text,setText] = useState('')
+//     const [birthday,setBirthday] = useState('')
+//     const [area,setArea] = useState('')
+//     const [id,setId] = useState('')//救援对象的id
+//     const [infoid, setInfoid] = useState('')//信息的id
     const [ownerSignUrl, setOwnerSignUrl] = useState('');
-    const [signUrls,setSignUrls] = useState([])
-    const [finish,setFinish]=useState(false)
-    const [flag,setFlag]=useState(false)
-    const [lap,setLap] = useState([])
-   /*  const [main,setMain] = useState(false)//核心成员
-    const [low,setLow] = useState(false)//资历浅的成员(见习) */
+const teachersRole = [
+  rescue_teacher1_role,
+  rescue_teacher2_role,
+  rescue_teacher3_role
+]
+//     const [signUrls,setSignUrls] = useState([])
 
-/*     const  [c_text,setC_text]=useState('') */
-const params = getCurrentInstance()
-const param = params.router.params
-    useReady(()=>{
+//     const [finish,setFinish]=useState(false)
+//     const [flag,setFlag]=useState(false)
+//     const [lap,setLap] = useState([])
+//    /*  const [main,setMain] = useState(false)//核心成员
+//     const [low,setLow] = useState(false)//资历浅的成员(见习) */
+//
+// /*     const  [c_text,setC_text]=useState('') */
 
-   // console.log(param)
-    const data = JSON.parse(param.data)
-    setTeacher(JSON.parse(param.teacher))
-    setLap(JSON.parse(param.lap))
-    console.log(data)
-    setId(data.rescue_target_id)
-    setInfoid(data.id)
-    setweibo_address(data.weibo_address)
-    setCreate_time(data.create_time)
-    setRisk_level(data.risk_level)
-    setSex(Sex[data.sex])
-    setText(data.text)
-    setBirthday(data.birthday)
-    setArea(data.area)
-    setNickname(data.nickname)
 
     Fetch(
         '/rescue/getsignature',
         {
-            "rescue_target_id": data.rescue_target_id
+            "rescue_target_id": rescue_target_id
         },
         'POST'
     ).then(
@@ -74,56 +70,22 @@ const param = params.router.params
         }
     ).catch(error=>console.log(error))
 
-   /*  if(param.flag=='已结案'||'已救援')
-        setFlag(true)
-    else if(param.flag=='未结案')
-        setFlag(false) */
-    if(param.finish=='已结案')
-        setFinish(true)
-    else
-        {setFinish(false)
-        setFlag(true)}
-  })
-
   function toComment(){
-    Taro.navigateTo({
-        url:`/moduleA/pages/Rescue_comment/index?id=${infoid}`
-    })
+    Nav(`/moduleA/pages/Rescue_comment/index`)
 }
     function showModal(){
         Taro.showModal({
             title:'去签字',
             content:'结案需要所有救助老师签字,待全部人签字后可结案',
             success: function (res) {
-                if (res.confirm) {
-                    jumpToSign()
-                  console.log('用户点击确定')
-                } else if (res.cancel) {
-                  console.log('用户点击取消')
-                }
+                res.confirm && jumpToSign()
               }
         })
     }
 
-/* base64加密上传 */
-    function imgToBase64(path ) {
-        let res = "";
-        try {
-          const base64 = Taro.getFileSystemManager().readFileSync(path, "base64");
-          if (base64) {
-              res = "data:image/jpeg;base64," + base64;
-          }
-        } catch (error) {
-          console.warn("=> utilssearch.ts error imgToBase64", error);
-          throw error;
-        } finally {
-          return res;
-        }
-      }
-
 
     const jumpToSign = () => {
-        
+
         const eventKey = `${new Date().getTime()}`
         Taro.eventCenter.once(eventKey, data => {
           //console.log(data)
@@ -136,13 +98,12 @@ const param = params.router.params
             Fetch(
                 '/rescue/sign',
                 {
-                    "rescue_target_id": id,
+                    "rescue_target_id": ,
                     "image": base64url
                 },
                 'POST'
             ).then(
-                res=>{
-                    console.log(res)
+                ()=>{
                     Taro.showToast({
                         title: '签字保存成功',
                         icon: 'success',
@@ -150,53 +111,27 @@ const param = params.router.params
                     })
                 }
             )
-            else{
-
-            }
         })
-    
-        Taro.navigateTo({ url: `/moduleA/pages/Sign/index?type=${eventKey}` });
+
+        Nav(`/moduleA/pages/Sign/index?type=${eventKey}`);
         /* 还要将该结案通知发给其他救助老师，都签字后自动结案 */
       }
 
+      const handleClip = () => Clip(weibo_address)
 
-
-    /*   function toWeibo(){
-        Taro.navigateTo({
-            url:`/moduleA/pages/Outer/index?weibo=${weibo_address}`
-        })
-      } */
-
-      function handleClip(){
-        //复制微博地址
-                Taro.setClipboardData({
-                    data: weibo_address,
-                    success: function () {
-                    Taro.getClipboardData({
-                    success: function (res) {
-                        Taro.showToast({
-                            title: '复制成功',
-                            icon: 'none',
-                            duration: 1500
-                        })
-                        console.log(res.data) // data
-                    }
-                    })
-                }
-                  })
-            }
     return (
 
         <>
 
         <View className='R_detail'>
             <View className='R_Title'>
-                <Text className='r_info'>报警信息</Text> 
-                <View className='r_flag' style={{backgroundColor:flag?'#f57b70':'#76A9FF'}}>{flag?'救援中':'已救援'}</View>
+                <Text className='r_info'>报警信息</Text>
+                <View className='r_flag' style={{backgroundColor: stat.color}}>{stat.text}</View>
                 <View className='lap'>
-                    {lap.map((item)=>{
+                    <Input type={'text'}></Input>
+                    {teachersRole.map((item)=>{
                         return(
-                            <Image key='lap' src={item>=4?'https://s2.loli.net/2023/08/01/12k9zWOSDYmjPop.png':item!=0?'https://s2.loli.net/2023/08/01/Ki8w7kyB5VAaLSY.png':'https://s2.loli.net/2023/08/01/F5WpGfAobgNOyYQ.png'}></Image>
+                            <Image key='lap' src={getImgUrl(item)}></Image>
                         )
                     })}
                 </View>
@@ -267,16 +202,32 @@ const param = params.router.params
                     }):''
                 }
                 </View>
-            
-            {finish?'':
+
+            {!finish &&
                 <View className='R_bottom'>
                    {/*  <Button className='greenB' onClick={transfer}>转介</Button> */}
                     <Button className='greenB'onClick={showModal} >结案</Button>
                 </View>}
             </View>
-           
+
         </>
     )
 }
 
 export default R_detail;
+
+/* base64加密上传 */
+export function imgToBase64(path ) {
+    let res = "";
+    try {
+        const base64 = Taro.getFileSystemManager().readFileSync(path, "base64");
+        if (base64) {
+            res = "data:image/jpeg;base64," + base64;
+        }
+    } catch (error) {
+        console.warn("=> utilssearch.ts error imgToBase64", error);
+        throw error;
+    } finally {
+        return res;
+    }
+}
