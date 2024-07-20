@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import Fetch from '../../../../Service/fetch'
 import Taro from '@tarojs/taro'
-import { ModalHover, SearchItem } from '../index'
+import { ModalHover } from './modalHover'
+// import { ModalHover } from '../index'
 import { ScrollView, View } from '@tarojs/components'
 
 export const SearchScore = ({ result, handle, query }) => {
