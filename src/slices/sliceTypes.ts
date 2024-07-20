@@ -11,6 +11,7 @@ export type rescueInfoSliceType = {
   rescueInfo: SingleRescueInfo
   targetInfo: RescueTargetInfoType
   process: RescueProcess[]
+  signUrls: string[]
 }
 
 export type rescueInfoByIDSliceType = {

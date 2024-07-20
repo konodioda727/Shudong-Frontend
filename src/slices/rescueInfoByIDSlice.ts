@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { rescueInfoByIDSliceType } from './sliceTypes'
 import { SingleRescueInfo, RescueTargetInfoType } from '../Service/fetchTypes'
-
+/** 以用户id为index的救援信息 */
 const rescueInfoByIDSlice = createSlice({
   name: 'rescueInfoByID',
   initialState: {
